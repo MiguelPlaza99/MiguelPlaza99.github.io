@@ -74,8 +74,9 @@
       width: 102%;
       height: 102%;
       object-fit: contain;
-      mix-blend-mode: screen;
-      filter: brightness(1.08) saturate(1.02) drop-shadow(0 0 10px rgba(232,221,208,.16));
+      mix-blend-mode: normal;
+      opacity: 1;
+      filter: brightness(1.14) saturate(1.1) drop-shadow(0 0 6px rgba(232,221,208,.08));
     }
     .logo-lockup {
       display: flex;
@@ -188,32 +189,34 @@
     }
     .hero-emblem {
       position: relative;
-      width: clamp(5.5rem, 10vw, 7.75rem);
+      width: clamp(6.2rem, 11vw, 8.4rem);
       aspect-ratio: 1;
       display: grid;
       place-items: center;
       margin: 0 auto 1.2rem;
+      overflow: visible;
     }
     .hero-emblem::before {
       content: '';
       position: absolute;
-      inset: 0;
+      inset: -.2rem;
       border-radius: 50%;
-      border: 1px solid rgba(200,185,154,.3);
+      border: 1px solid rgba(232,221,208,.55);
       background:
-        radial-gradient(circle at center, rgba(232,221,208,.2) 0%, rgba(232,221,208,.08) 38%, rgba(28,26,21,.2) 72%, transparent 100%);
+        radial-gradient(circle at 30% 30%, rgba(255,248,238,.2) 0%, rgba(255,248,238,0) 32%),
+        linear-gradient(180deg, rgba(42,36,28,.94) 0%, rgba(28,26,21,.92) 100%);
       box-shadow:
-        0 0 0 10px rgba(200,185,154,.05),
-        0 18px 45px rgba(0,0,0,.18);
-      backdrop-filter: blur(8px);
+        0 0 0 10px rgba(200,185,154,.08),
+        0 18px 45px rgba(0,0,0,.28);
     }
     .hero-emblem img {
       position: relative;
-      width: 78%;
-      height: 78%;
+      width: 68%;
+      height: 68%;
       object-fit: contain;
-      mix-blend-mode: screen;
-      filter: brightness(1.08) saturate(1.02);
+      mix-blend-mode: normal;
+      opacity: 1;
+      filter: brightness(1.14) saturate(1.1) drop-shadow(0 0 8px rgba(232,221,208,.1));
     }
     .hero-kicker {
       font-family: 'Cinzel', serif;
@@ -833,8 +836,9 @@
     .footer-logo img {
       height: 2.4rem;
       width: auto;
-      mix-blend-mode: screen;
-      filter: brightness(1.08) saturate(1.02);
+      mix-blend-mode: normal;
+      opacity: .96;
+      filter: brightness(1.1) saturate(1.06);
     }
 
     .footer-copy {
