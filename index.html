@@ -1,0 +1,1128 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hotel Vestigia — Sigüenza</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel:wght@400;600&family=Raleway:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --stone:       #c8b99a;
+      --stone-light: #e8ddd0;
+      --stone-dark:  #7a6a55;
+      --ink:         #1c1a15;
+      --ink-mid:     #2e2a20;
+      --parchment:   #f5f0e8;
+      --rust:        #8b4a2f;
+      --cream:       #faf7f2;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Raleway', sans-serif;
+      background: var(--ink);
+      color: var(--parchment);
+      overflow-x: hidden;
+    }
+
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: var(--ink); }
+    ::-webkit-scrollbar-thumb { background: var(--stone-dark); }
+
+    /* ══════════════════════════════════════
+       NAV
+    ══════════════════════════════════════ */
+    nav {
+      position: fixed; top: 0; width: 100%; z-index: 200;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1.2rem 5vw;
+      transition: background .5s, padding .3s;
+    }
+    nav.scrolled {
+      background: rgba(28,26,21,.96);
+      padding: .85rem 5vw;
+      border-bottom: 1px solid rgba(200,185,154,.15);
+      backdrop-filter: blur(8px);
+    }
+
+    .logo {
+      font-family: 'Cinzel', serif;
+      font-size: 1.4rem;
+      letter-spacing: .22em;
+      color: var(--stone);
+      text-decoration: none;
+      display: flex; flex-direction: column; line-height: 1;
+    }
+    .logo span {
+      font-family: 'Raleway', sans-serif;
+      font-size: .6rem;
+      letter-spacing: .45em;
+      color: var(--stone-light);
+      font-weight: 300;
+      margin-top: 3px;
+    }
+
+    .nav-links { display: flex; gap: 2.2rem; list-style: none; align-items: center; }
+    .nav-links a {
+      font-size: .7rem; letter-spacing: .22em; text-transform: uppercase;
+      color: var(--stone-light); text-decoration: none; opacity: .75;
+      transition: opacity .3s, color .3s;
+    }
+    .nav-links a:hover { opacity: 1; color: var(--stone); }
+
+    .btn-reservar {
+      font-family: 'Cinzel', serif;
+      font-size: .68rem; letter-spacing: .18em; text-transform: uppercase;
+      padding: .55rem 1.4rem;
+      border: 1px solid var(--stone);
+      color: var(--stone);
+      background: transparent;
+      text-decoration: none;
+      transition: background .3s, color .3s;
+    }
+    .btn-reservar:hover { background: var(--stone); color: var(--ink); }
+
+    /* ══════════════════════════════════════
+       HERO
+    ══════════════════════════════════════ */
+    #inicio {
+      position: relative;
+      height: 100vh; min-height: 600px;
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute; inset: 0;
+      background:
+        linear-gradient(to bottom, rgba(28,26,21,.3) 0%, rgba(28,26,21,.55) 60%, rgba(28,26,21,.92) 100%),
+        url('https://images.unsplash.com/photo-1604999565976-8913ad2ddb7c?w=1800&q=80') center/cover no-repeat;
+      transform: scale(1.05);
+      animation: heroZoom 18s ease-in-out infinite alternate;
+    }
+    @keyframes heroZoom {
+      from { transform: scale(1.05); }
+      to   { transform: scale(1.12); }
+    }
+
+    /* Decorative diagonal stripe */
+    .hero-bg::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: repeating-linear-gradient(
+        -45deg,
+        transparent,
+        transparent 60px,
+        rgba(200,185,154,.025) 60px,
+        rgba(200,185,154,.025) 61px
+      );
+    }
+
+    .hero-content {
+      position: relative; z-index: 2;
+      text-align: center; padding: 0 2rem;
+      animation: fadeUp .9s ease both;
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(28px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero-tagline {
+      font-family: 'Raleway', sans-serif;
+      font-size: .65rem; letter-spacing: .5em; text-transform: uppercase;
+      color: var(--stone);
+      margin-bottom: 1.4rem;
+      animation: fadeUp .9s .15s ease both;
+    }
+
+    .hero-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(3.5rem, 9vw, 7.5rem);
+      font-weight: 300;
+      line-height: .95;
+      letter-spacing: .04em;
+      color: var(--cream);
+      margin-bottom: .6rem;
+      animation: fadeUp .9s .25s ease both;
+    }
+    .hero-title em {
+      font-style: italic;
+      color: var(--stone-light);
+    }
+
+    .hero-sub {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: clamp(1rem, 2.2vw, 1.35rem);
+      color: var(--stone-light);
+      letter-spacing: .06em;
+      margin-bottom: 2.8rem;
+      animation: fadeUp .9s .35s ease both;
+    }
+
+    .hero-divider {
+      display: flex; align-items: center; justify-content: center;
+      gap: 1rem; margin-bottom: 2.8rem;
+      animation: fadeUp .9s .4s ease both;
+    }
+    .hero-divider::before, .hero-divider::after {
+      content: ''; flex: 0 0 60px; height: 1px;
+      background: linear-gradient(to right, transparent, var(--stone));
+    }
+    .hero-divider::after { background: linear-gradient(to left, transparent, var(--stone)); }
+    .hero-divider span {
+      font-size: .55rem; letter-spacing: .4em; text-transform: uppercase;
+      color: var(--stone); opacity: .8;
+    }
+
+    .hero-ctas {
+      display: flex; gap: 1.2rem; justify-content: center; flex-wrap: wrap;
+      animation: fadeUp .9s .5s ease both;
+    }
+
+    .btn-primary {
+      font-family: 'Cinzel', serif;
+      font-size: .72rem; letter-spacing: .2em; text-transform: uppercase;
+      padding: .85rem 2.4rem;
+      background: var(--stone);
+      color: var(--ink);
+      text-decoration: none;
+      transition: background .3s, transform .2s;
+      border: 1px solid var(--stone);
+    }
+    .btn-primary:hover { background: var(--stone-light); transform: translateY(-2px); }
+
+    .btn-secondary {
+      font-family: 'Cinzel', serif;
+      font-size: .72rem; letter-spacing: .2em; text-transform: uppercase;
+      padding: .85rem 2.4rem;
+      background: transparent;
+      color: var(--stone-light);
+      text-decoration: none;
+      border: 1px solid rgba(200,185,154,.45);
+      transition: border-color .3s, color .3s, transform .2s;
+    }
+    .btn-secondary:hover { border-color: var(--stone-light); color: var(--cream); transform: translateY(-2px); }
+
+    .scroll-indicator {
+      position: absolute; bottom: 1.2rem; left: 50%; transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: .5rem;
+      animation: fadeUp .9s .7s ease both;
+    }
+    .scroll-indicator span {
+      font-size: .55rem; letter-spacing: .35em; text-transform: uppercase;
+      color: var(--stone); opacity: .6;
+    }
+    .scroll-line {
+      width: 1px; height: 50px;
+      background: linear-gradient(to bottom, var(--stone), transparent);
+      animation: scrollPulse 2s ease-in-out infinite;
+    }
+    @keyframes scrollPulse {
+      0%, 100% { opacity: .4; transform: scaleY(1); }
+      50%       { opacity: .9; transform: scaleY(1.2); }
+    }
+
+    /* ══════════════════════════════════════
+       SECTION COMMONS
+    ══════════════════════════════════════ */
+    section { padding: 7rem 5vw; }
+
+    .section-label {
+      font-size: .6rem; letter-spacing: .55em; text-transform: uppercase;
+      color: var(--stone); margin-bottom: .8rem;
+    }
+
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.2rem, 5vw, 3.8rem);
+      font-weight: 300;
+      line-height: 1.1;
+      color: var(--cream);
+    }
+    .section-title em { font-style: italic; color: var(--stone-light); }
+
+    .ornament {
+      display: flex; align-items: center; gap: .8rem; margin: 1.4rem 0 2rem;
+    }
+    .ornament::before {
+      content: ''; display: block; flex: 0 0 40px; height: 1px;
+      background: var(--stone-dark);
+    }
+    .ornament-diamond {
+      width: 6px; height: 6px;
+      background: var(--stone);
+      transform: rotate(45deg);
+    }
+    .ornament-line {
+      flex: 0 0 20px; height: 1px; background: var(--stone-dark);
+    }
+
+    /* ══════════════════════════════════════
+       SOBRE NOSOTROS
+    ══════════════════════════════════════ */
+    #sobre {
+      background: var(--ink-mid);
+      position: relative; overflow: hidden;
+    }
+    #sobre::before {
+      content: 'VESTIGIA';
+      position: absolute; right: -2rem; top: 50%; transform: translateY(-50%);
+      font-family: 'Cinzel', serif;
+      font-size: clamp(5rem, 12vw, 11rem);
+      font-weight: 600;
+      color: rgba(200,185,154,.04);
+      letter-spacing: .15em;
+      pointer-events: none;
+      white-space: nowrap;
+    }
+
+    .sobre-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6rem;
+      align-items: center;
+      max-width: 1200px; margin: 0 auto;
+    }
+
+    .sobre-text p {
+      font-size: clamp(.9rem, 1.3vw, 1rem);
+      line-height: 1.9;
+      color: rgba(245,240,232,.72);
+      font-weight: 300;
+      margin-bottom: 1.4rem;
+    }
+    .sobre-text p strong {
+      color: var(--stone-light);
+      font-weight: 500;
+    }
+
+    .sobre-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem; margin-top: 2.5rem;
+    }
+    .stat {
+      border-left: 1px solid rgba(200,185,154,.25);
+      padding-left: 1.2rem;
+    }
+    .stat-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.5rem; font-weight: 300;
+      color: var(--stone);
+      line-height: 1;
+    }
+    .stat-label {
+      font-size: .65rem; letter-spacing: .3em; text-transform: uppercase;
+      color: rgba(245,240,232,.5);
+      margin-top: .3rem;
+    }
+
+    .sobre-img-wrap {
+      position: relative;
+      display: grid;
+      gap: 1rem;
+    }
+    .sobre-img {
+      width: 100%; aspect-ratio: 3/4;
+      object-fit: cover;
+      display: block;
+    }
+    .sobre-img-secondary {
+      width: 100%; aspect-ratio: 4/3;
+      object-fit: cover;
+      display: block;
+      border: 1px solid rgba(200,185,154,.15);
+      box-shadow: 0 20px 50px rgba(0,0,0,.12);
+    }
+    .sobre-img-frame {
+      position: absolute;
+      top: -1.5rem; left: -1.5rem;
+      right: 1.5rem; bottom: 1.5rem;
+      border: 1px solid rgba(200,185,154,.25);
+      pointer-events: none;
+    }
+    .sobre-badge {
+      position: absolute;
+      bottom: -1.5rem; right: -1.5rem;
+      background: var(--rust);
+      padding: 1.5rem;
+      text-align: center;
+      min-width: 120px;
+    }
+    .sobre-badge .num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.2rem; font-weight: 300; color: var(--cream);
+    }
+    .sobre-badge .lbl {
+      font-size: .55rem; letter-spacing: .3em; text-transform: uppercase;
+      color: rgba(245,240,232,.7); margin-top: .2rem;
+    }
+
+    /* ══════════════════════════════════════
+       SERVICIOS
+    ══════════════════════════════════════ */
+    #servicios {
+      background: var(--ink);
+    }
+
+    .servicios-header {
+      text-align: center; max-width: 700px; margin: 0 auto 4rem;
+    }
+    .servicios-header .ornament { justify-content: center; }
+    .servicios-header .ornament::before { display: none; }
+
+    .servicios-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5px;
+      max-width: 1200px; margin: 0 auto;
+      background: rgba(200,185,154,.12);
+    }
+
+    .servicio-card {
+      background: var(--ink);
+      padding: 3rem 2.5rem;
+      transition: background .3s;
+      position: relative; overflow: hidden;
+    }
+    .servicio-card::before {
+      content: '';
+      position: absolute; bottom: 0; left: 0;
+      width: 0; height: 2px;
+      background: var(--stone);
+      transition: width .4s ease;
+    }
+    .servicio-card:hover { background: rgba(46,42,32,.9); }
+    .servicio-card:hover::before { width: 100%; }
+
+    .servicio-icon {
+      font-size: 1.8rem; margin-bottom: 1.5rem;
+      display: block;
+    }
+
+    .servicio-name {
+      font-family: 'Cinzel', serif;
+      font-size: .85rem; letter-spacing: .18em; text-transform: uppercase;
+      color: var(--stone-light);
+      margin-bottom: .8rem;
+    }
+
+    .servicio-desc {
+      font-size: .85rem; line-height: 1.75;
+      color: rgba(245,240,232,.55);
+      font-weight: 300;
+    }
+
+    /* ══════════════════════════════════════
+       HABITACIONES
+    ══════════════════════════════════════ */
+    #habitaciones {
+      background: var(--ink-mid);
+    }
+
+    .hab-header {
+      max-width: 600px; margin-bottom: 4rem;
+    }
+
+    .hab-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 2rem;
+      max-width: 1200px; margin: 0 auto;
+    }
+
+    .hab-card {
+      position: relative; overflow: hidden;
+      cursor: pointer;
+    }
+
+    .hab-img {
+      width: 100%; aspect-ratio: 4/3;
+      object-fit: cover;
+      display: block;
+      transition: transform .5s ease;
+      filter: brightness(.85);
+    }
+    .hab-card:hover .hab-img { transform: scale(1.04); filter: brightness(.7); }
+
+    .hab-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(28,26,21,.9) 0%, transparent 55%);
+      padding: 1.8rem;
+      display: flex; flex-direction: column; justify-content: flex-end;
+    }
+
+    .hab-tag {
+      font-size: .6rem; letter-spacing: .4em; text-transform: uppercase;
+      color: var(--stone); margin-bottom: .5rem;
+    }
+
+    .hab-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.7rem; font-weight: 300;
+      color: var(--cream); margin-bottom: .4rem;
+    }
+
+    .hab-features {
+      display: flex; gap: 1rem; flex-wrap: wrap; margin-top: .4rem;
+    }
+    .hab-feat {
+      font-size: .6rem; letter-spacing: .2em; text-transform: uppercase;
+      color: rgba(245,240,232,.5);
+      display: flex; align-items: center; gap: .3rem;
+    }
+    .hab-feat::before { content: '✦'; color: var(--stone); font-size: .45rem; }
+
+    .hab-card:hover .hab-cta {
+      opacity: 1; transform: translateY(0);
+    }
+    .hab-cta {
+      position: absolute; top: 1.5rem; right: 1.5rem;
+      background: var(--stone);
+      color: var(--ink);
+      font-family: 'Cinzel', serif;
+      font-size: .6rem; letter-spacing: .18em; text-transform: uppercase;
+      padding: .5rem 1rem;
+      text-decoration: none;
+      opacity: 0; transform: translateY(-8px);
+      transition: opacity .3s, transform .3s;
+    }
+
+    /* ══════════════════════════════════════
+       ENTORNO — Sigüenza
+    ══════════════════════════════════════ */
+    #entorno {
+      background: var(--ink);
+      padding: 7rem 0;
+    }
+
+    .entorno-inner {
+      padding: 0 5vw;
+      max-width: 1200px; margin: 0 auto;
+    }
+
+    .entorno-cols {
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      gap: 5rem; align-items: center;
+      margin-top: 3rem;
+    }
+
+    .entorno-mosaic {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 200px 200px;
+      gap: 1rem;
+    }
+    .mosaic-img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+      filter: brightness(.8);
+      transition: filter .3s;
+    }
+    .mosaic-img:hover { filter: brightness(1); }
+    .mosaic-tall {
+      grid-row: span 2;
+    }
+
+    .entorno-list {
+      list-style: none; margin-top: 2rem;
+    }
+    .entorno-list li {
+      display: flex; align-items: flex-start; gap: 1rem;
+      padding: 1rem 0;
+      border-bottom: 1px solid rgba(200,185,154,.1);
+    }
+    .entorno-list li:first-child { border-top: 1px solid rgba(200,185,154,.1); }
+    .entorno-dist {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem; color: var(--stone);
+      min-width: 55px; text-align: right;
+      font-style: italic;
+    }
+    .entorno-info strong {
+      display: block;
+      font-family: 'Cinzel', serif;
+      font-size: .72rem; letter-spacing: .12em; text-transform: uppercase;
+      color: var(--cream); margin-bottom: .2rem;
+    }
+    .entorno-info span {
+      font-size: .78rem; color: rgba(245,240,232,.5);
+      line-height: 1.5;
+    }
+
+    /* ══════════════════════════════════════
+       CONTACTO
+    ══════════════════════════════════════ */
+    #contacto {
+      background: var(--ink-mid);
+      position: relative; overflow: hidden;
+    }
+    #contacto::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(to right, transparent, var(--stone), transparent);
+    }
+
+    .contacto-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      max-width: 1200px; margin: 0 auto;
+    }
+
+    .contacto-info .ornament { margin-top: 1.5rem; }
+
+    .contacto-datos {
+      margin-top: 2.5rem;
+      display: flex; flex-direction: column; gap: 1.8rem;
+    }
+    .dato {
+      display: flex; align-items: flex-start; gap: 1.2rem;
+    }
+    .dato-icon {
+      font-size: 1.1rem; min-width: 24px;
+      margin-top: .1rem;
+    }
+    .dato-label {
+      font-size: .6rem; letter-spacing: .35em; text-transform: uppercase;
+      color: var(--stone); margin-bottom: .3rem;
+    }
+    .dato-val {
+      font-size: .95rem; color: rgba(245,240,232,.75);
+      line-height: 1.6;
+    }
+    .dato-val a { color: inherit; text-decoration: none; }
+    .dato-val a:hover { color: var(--stone-light); }
+
+    /* Formulario */
+    .contacto-form {
+      display: flex; flex-direction: column; gap: 1.2rem;
+    }
+
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+
+    .form-group {
+      display: flex; flex-direction: column; gap: .4rem;
+    }
+    .form-group label {
+      font-size: .6rem; letter-spacing: .3em; text-transform: uppercase;
+      color: var(--stone-dark);
+    }
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(200,185,154,.2);
+      color: var(--parchment);
+      padding: .8rem 1rem;
+      font-family: 'Raleway', sans-serif;
+      font-size: .85rem;
+      outline: none;
+      transition: border-color .3s;
+      -webkit-appearance: none;
+    }
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+      border-color: var(--stone);
+    }
+    .form-group textarea { resize: vertical; min-height: 110px; }
+    .form-group select option { background: var(--ink-mid); }
+
+    .btn-enviar {
+      align-self: flex-start;
+      font-family: 'Cinzel', serif;
+      font-size: .72rem; letter-spacing: .2em; text-transform: uppercase;
+      padding: .9rem 2.5rem;
+      background: var(--stone);
+      color: var(--ink);
+      border: none; cursor: pointer;
+      transition: background .3s, transform .2s;
+    }
+    .btn-enviar:hover { background: var(--stone-light); transform: translateY(-2px); }
+
+    .form-note {
+      font-size: .72rem; color: rgba(245,240,232,.35);
+      line-height: 1.6;
+    }
+
+    /* ══════════════════════════════════════
+       FOOTER
+    ══════════════════════════════════════ */
+    footer {
+      background: var(--ink);
+      border-top: 1px solid rgba(200,185,154,.1);
+      padding: 3rem 5vw;
+      display: flex;
+      justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 1.5rem;
+    }
+
+    .footer-logo {
+      font-family: 'Cinzel', serif;
+      font-size: 1.1rem; letter-spacing: .2em;
+      color: var(--stone);
+    }
+
+    .footer-copy {
+      font-size: .68rem; letter-spacing: .15em;
+      color: rgba(245,240,232,.3);
+    }
+
+    .footer-links {
+      display: flex; gap: 2rem; list-style: none;
+    }
+    .footer-links a {
+      font-size: .65rem; letter-spacing: .2em; text-transform: uppercase;
+      color: rgba(245,240,232,.35); text-decoration: none;
+      transition: color .3s;
+    }
+    .footer-links a:hover { color: var(--stone); }
+
+    /* ══════════════════════════════════════
+       RESPONSIVE
+    ══════════════════════════════════════ */
+    .hamburger {
+      display: none;
+      background: none; border: none; cursor: pointer;
+      flex-direction: column; gap: 5px; padding: 4px;
+    }
+    .hamburger span {
+      display: block; width: 24px; height: 1px;
+      background: var(--stone-light);
+      transition: transform .3s, opacity .3s;
+    }
+
+    @media (max-width: 900px) {
+      .sobre-grid, .entorno-cols, .contacto-grid { grid-template-columns: 1fr; gap: 3rem; }
+      .sobre-img-wrap { order: -1; }
+      .entorno-mosaic { grid-template-rows: 160px 160px; }
+      nav .nav-links, nav .btn-reservar { display: none; }
+      .hamburger { display: flex; }
+      .form-row { grid-template-columns: 1fr; }
+      footer { flex-direction: column; text-align: center; }
+    }
+
+    /* ══════════════════════════════════════
+       FADE-IN ON SCROLL
+    ══════════════════════════════════════ */
+    .reveal {
+      opacity: 0; transform: translateY(30px);
+      transition: opacity .7s ease, transform .7s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+  </style>
+</head>
+<body>
+
+  <!-- ═══════ NAV ═══════ -->
+  <nav id="main-nav">
+    <a href="#inicio" class="logo">
+      VESTIGIA
+      <span>Hotel · Sigüenza</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#sobre">El Hotel</a></li>
+      <li><a href="#servicios">Servicios</a></li>
+      <li><a href="#habitaciones">Habitaciones</a></li>
+      <li><a href="#entorno">Sigüenza</a></li>
+      <li><a href="#contacto">Contacto</a></li>
+    </ul>
+    <a href="#contacto" class="btn-reservar">Reservar</a>
+    <button class="hamburger" aria-label="Menú" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- ═══════ HERO ═══════ -->
+  <section id="inicio">
+    <div class="hero-bg"></div>
+    <div class="hero-content">
+      <p class="hero-tagline">Sigüenza, Guadalajara · Castilla-La Mancha</p>
+      <h1 class="hero-title">Hotel<br><em>Vestigia</em></h1>
+      <p class="hero-sub">Donde la piedra medieval guarda el alma de Castilla</p>
+      <div class="hero-divider"><span>★ ★ ★</span></div>
+      <div class="hero-ctas">
+        <a href="#contacto" class="btn-primary">Reservar Estancia</a>
+        <a href="#sobre" class="btn-secondary">Descubrir el Hotel</a>
+      </div>
+    </div>
+    <div class="scroll-indicator">
+      <span>Explorar</span>
+      <div class="scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- ═══════ SOBRE NOSOTROS ═══════ -->
+  <section id="sobre">
+    <div class="sobre-grid">
+      <div class="sobre-text reveal">
+        <p class="section-label">El Hotel</p>
+        <h2 class="section-title">Un refugio en el<br><em>corazón medieval</em></h2>
+        <div class="ornament">
+          <div class="ornament-diamond"></div>
+          <div class="ornament-line"></div>
+        </div>
+        <p>
+          <strong>Hotel Vestigia</strong> se alza en el casco histórico de Sigüenza, a escasos pasos del Castillo Episcopal y de la imponente Catedral de Santa María. Su nombre, <em>vestigia</em> —huellas en latín—, evoca los siglos de historia que impregnan cada piedra de esta ciudad medieval declarada Conjunto Histórico-Artístico.
+        </p>
+        <p>
+          Con <strong>18 habitaciones</strong> cuidadosamente equipadas, el Vestigia combina el carácter auténtico de Sigüenza con las comodidades que el viajero contemporáneo merece: WiFi en todas las estancias, aire acondicionado, baños modernos y unas vistas que harán que el tiempo se detenga.
+        </p>
+        <p>
+          Ubicado en <strong>C/ Las Cuestas, 12</strong> — a apenas 400 metros de la Catedral y a 0,4 km del Castillo Medieval, la posición más estratégica de Sigüenza para explorar su incomparable patrimonio.
+        </p>
+        <div class="sobre-stats">
+          <div class="stat">
+            <div class="stat-num">18</div>
+            <div class="stat-label">Habitaciones</div>
+          </div>
+          <div class="stat">
+            <div class="stat-num">★★</div>
+            <div class="stat-label">Estrellas</div>
+          </div>
+          <div class="stat">
+            <div class="stat-num">0,4</div>
+            <div class="stat-label">Km al Castillo</div>
+          </div>
+          <div class="stat">
+            <div class="stat-num">130</div>
+            <div class="stat-label">Km a Madrid</div>
+          </div>
+        </div>
+      </div>
+      <div class="sobre-img-wrap reveal">
+        <div class="sobre-img-frame"></div>
+        <img
+          src="https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?w=800&q=80"
+          alt="Interior Hotel Vestigia"
+          class="sobre-img"
+        />
+        <img
+          src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=800&q=80"
+          alt="Calle medieval de Sigüenza"
+          class="sobre-img-secondary"
+        />
+        <div class="sobre-badge">
+          <div class="num">S.XXI</div>
+          <div class="lbl">Historia viva</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════ SERVICIOS ═══════ -->
+  <section id="servicios">
+    <div class="servicios-header reveal">
+      <p class="section-label">Nuestras instalaciones</p>
+      <h2 class="section-title">Servicios &amp;<br><em>Experiencias</em></h2>
+      <div class="ornament" style="justify-content:center;">
+        <div class="ornament-diamond"></div>
+        <div class="ornament-line"></div>
+      </div>
+      <p style="color:rgba(245,240,232,.55); font-size:.9rem; line-height:1.8; font-weight:300;">
+        Todo lo que necesitas para una estancia inolvidable, envuelto en la atmósfera única de la ciudad medieval.
+      </p>
+    </div>
+    <div class="servicios-grid">
+      <div class="servicio-card reveal">
+        <span class="servicio-icon">🌿</span>
+        <div class="servicio-name">Spa &amp; Wellness</div>
+        <p class="servicio-desc">Baño turco, jacuzzi y sauna para renovar cuerpo y mente tras explorar el patrimonio medieval de Sigüenza. Pura relajación en un entorno de piedra.</p>
+      </div>
+      <div class="servicio-card reveal">
+        <span class="servicio-icon">💆</span>
+        <div class="servicio-name">Masajes &amp; Tratamientos</div>
+        <p class="servicio-desc">Masajes relajantes y tratamientos de belleza a cargo de terapeutas especializados. La escapada perfecta para parejas y viajeros que buscan descanso profundo.</p>
+      </div>
+      <div class="servicio-card reveal">
+        <span class="servicio-icon">🍽️</span>
+        <div class="servicio-name">Restaurante &amp; Bar</div>
+        <p class="servicio-desc">Cocina castellana de producto en un ambiente íntimo. Desayuno bufé diario para empezar la jornada con energía. Bar con cóctelería y selección de vinos de la tierra.</p>
+      </div>
+      <div class="servicio-card reveal">
+        <span class="servicio-icon">🏋️</span>
+        <div class="servicio-name">Gimnasio</div>
+        <p class="servicio-desc">Instalación de fitness equipada para los huéspedes que desean mantener su rutina de ejercicio durante la estancia en Sigüenza.</p>
+      </div>
+      <div class="servicio-card reveal">
+        <span class="servicio-icon">📶</span>
+        <div class="servicio-name">WiFi Gratuito</div>
+        <p class="servicio-desc">Conexión WiFi de alta velocidad en todas las habitaciones y zonas comunes del hotel. Mantente conectado sin límites durante tu estancia.</p>
+      </div>
+      <div class="servicio-card reveal">
+        <span class="servicio-icon">♿</span>
+        <div class="servicio-name">Accesibilidad</div>
+        <p class="servicio-desc">Habitaciones adaptadas para personas con movilidad reducida. Ascensor y accesos acondicionados para que todos los huéspedes disfruten con total comodidad.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════ HABITACIONES ═══════ -->
+  <section id="habitaciones">
+    <div class="hab-header reveal">
+      <p class="section-label">Alojamiento</p>
+      <h2 class="section-title">Nuestras<br><em>Habitaciones</em></h2>
+      <div class="ornament">
+        <div class="ornament-diamond"></div>
+        <div class="ornament-line"></div>
+      </div>
+      <p style="color:rgba(245,240,232,.55); font-size:.9rem; line-height:1.8; font-weight:300; max-width:520px;">
+        18 habitaciones con decoración individual, baño privado, aire acondicionado, televisión de pantalla plana y WiFi gratuito. Algunas con vistas a la ciudad medieval.
+      </p>
+    </div>
+    <div class="hab-grid">
+      <div class="hab-card reveal">
+        <img src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=700&q=80" alt="Habitación Doble" class="hab-img" />
+        <div class="hab-overlay">
+          <div class="hab-tag">La más solicitada</div>
+          <div class="hab-name">Habitación Doble</div>
+          <div class="hab-features">
+            <span class="hab-feat">Baño privado</span>
+            <span class="hab-feat">AC</span>
+            <span class="hab-feat">TV plana</span>
+            <span class="hab-feat">WiFi</span>
+          </div>
+        </div>
+        <a href="#contacto" class="hab-cta">Reservar</a>
+      </div>
+      <div class="hab-card reveal">
+        <img src="https://images.unsplash.com/photo-1578683010236-d716f9a3f461?w=700&q=80" alt="Suite" class="hab-img" />
+        <div class="hab-overlay">
+          <div class="hab-tag">Más espacio</div>
+          <div class="hab-name">Suite Superior</div>
+          <div class="hab-features">
+            <span class="hab-feat">Vistas ciudad</span>
+            <span class="hab-feat">Bañera</span>
+            <span class="hab-feat">Salón</span>
+          </div>
+        </div>
+        <a href="#contacto" class="hab-cta">Reservar</a>
+      </div>
+      <div class="hab-card reveal">
+        <img src="https://images.unsplash.com/photo-1540518614846-7eded433c457?w=700&q=80" alt="Habitación Individual" class="hab-img" />
+        <div class="hab-overlay">
+          <div class="hab-tag">Viajero solo</div>
+          <div class="hab-name">Habitación Individual</div>
+          <div class="hab-features">
+            <span class="hab-feat">Baño privado</span>
+            <span class="hab-feat">AC</span>
+            <span class="hab-feat">WiFi</span>
+          </div>
+        </div>
+        <a href="#contacto" class="hab-cta">Reservar</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════ ENTORNO ═══════ -->
+  <section id="entorno">
+    <div class="entorno-inner">
+      <div class="reveal">
+        <p class="section-label">Descubrir</p>
+        <h2 class="section-title">Sigüenza,<br><em>ciudad medieval</em></h2>
+        <div class="ornament">
+          <div class="ornament-diamond"></div>
+          <div class="ornament-line"></div>
+        </div>
+        <p style="color:rgba(245,240,232,.55); font-size:.9rem; line-height:1.8; font-weight:300; max-width:640px;">
+          Declarada Conjunto Histórico-Artístico en 1965, Sigüenza atesora casi 900 años de historia viva. Desde el Hotel Vestigia, el patrimonio más impresionante de Castilla-La Mancha te espera a un paseo.
+        </p>
+      </div>
+      <div class="entorno-cols">
+        <div class="entorno-mosaic reveal">
+          <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80" alt="Castillo de Sigüenza" class="mosaic-img" />
+          <img src="https://images.unsplash.com/photo-1466442929976-97f336a657be?w=600&q=80" alt="Catedral de Sigüenza" class="mosaic-img" />
+          <img src="https://images.unsplash.com/photo-1564501049412-61c2a3083791?w=600&q=80" alt="Casco histórico" class="mosaic-img" />
+          <img src="https://images.unsplash.com/photo-1503990824782-89a0bcd351a5?w=600&q=80" alt="Plaza Mayor de Sigüenza" class="mosaic-img" />
+        </div>
+        <div class="reveal">
+          <ul class="entorno-list">
+            <li>
+              <div class="entorno-dist">0,4 km</div>
+              <div class="entorno-info">
+                <strong>Castillo de Sigüenza</strong>
+                <span>Fortaleza episcopal del siglo XII, hoy Parador de Turismo. Una de las estampas más icónicas de Guadalajara.</span>
+              </div>
+            </li>
+            <li>
+              <div class="entorno-dist">0,8 km</div>
+              <div class="entorno-info">
+                <strong>Catedral de Santa María</strong>
+                <span>Iniciada en el siglo XII, combina románico, gótico y renacimiento. Alberga el célebre Doncel de Sigüenza.</span>
+              </div>
+            </li>
+            <li>
+              <div class="entorno-dist">0,7 km</div>
+              <div class="entorno-info">
+                <strong>Plaza Mayor</strong>
+                <span>Centro renacentista del siglo XV, diseñado por el Cardenal Mendoza. Corazón social y gastronómico de la ciudad.</span>
+              </div>
+            </li>
+            <li>
+              <div class="entorno-dist">~15 km</div>
+              <div class="entorno-info">
+                <strong>Parque Natural Río Dulce</strong>
+                <span>Paisaje natural protegido con rutas de senderismo de gran belleza, famoso por su flora y fauna.</span>
+              </div>
+            </li>
+            <li>
+              <div class="entorno-dist">130 km</div>
+              <div class="entorno-info">
+                <strong>Madrid</strong>
+                <span>Perfectamente conectado por la autovía A-2. La escapada ideal desde la capital en menos de 1h 30 min.</span>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════ CONTACTO ═══════ -->
+  <section id="contacto">
+    <div class="contacto-grid">
+      <div class="contacto-info reveal">
+        <p class="section-label">Reservas &amp; Contacto</p>
+        <h2 class="section-title">Planifica tu<br><em>estancia</em></h2>
+        <div class="ornament">
+          <div class="ornament-diamond"></div>
+          <div class="ornament-line"></div>
+        </div>
+        <p style="color:rgba(245,240,232,.55); font-size:.9rem; line-height:1.8; font-weight:300;">
+          Estamos aquí para hacer de tu visita a Sigüenza una experiencia inolvidable. Contáctanos para reservas, información o escapadas especiales.
+        </p>
+        <div class="contacto-datos">
+          <div class="dato">
+            <div class="dato-icon">📍</div>
+            <div>
+              <div class="dato-label">Dirección</div>
+              <div class="dato-val">C/ Las Cuestas, 12<br>19250 Sigüenza, Guadalajara</div>
+            </div>
+          </div>
+          <div class="dato">
+            <div class="dato-icon">📞</div>
+            <div>
+              <div class="dato-label">Teléfono</div>
+              <div class="dato-val"><a href="tel:+34949347484">+34 949 347 484</a></div>
+            </div>
+          </div>
+          <div class="dato">
+            <div class="dato-icon">✉️</div>
+            <div>
+              <div class="dato-label">Email</div>
+              <div class="dato-val"><a href="mailto:info@hotelvestigia.es">info@hotelvestigia.es</a></div>
+            </div>
+          </div>
+          <div class="dato">
+            <div class="dato-icon">🕐</div>
+            <div>
+              <div class="dato-label">Check-in / Check-out</div>
+              <div class="dato-val">Check-in: desde las 14:00 h<br>Check-out: hasta las 12:00 h</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="reveal">
+        <form class="contacto-form" onsubmit="handleSubmit(event)">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="nombre">Nombre</label>
+              <input type="text" id="nombre" placeholder="Tu nombre" required />
+            </div>
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="email" id="email" placeholder="tu@email.com" required />
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="llegada">Fecha llegada</label>
+              <input type="date" id="llegada" />
+            </div>
+            <div class="form-group">
+              <label for="salida">Fecha salida</label>
+              <input type="date" id="salida" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="habitacion">Tipo de habitación</label>
+            <select id="habitacion">
+              <option value="">— Seleccionar —</option>
+              <option>Habitación Individual</option>
+              <option>Habitación Doble</option>
+              <option>Suite Superior</option>
+              <option>Habitación Adaptada</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="mensaje">Mensaje o petición especial</label>
+            <textarea id="mensaje" placeholder="Cuéntanos qué necesitas..."></textarea>
+          </div>
+          <button type="submit" class="btn-enviar">Enviar Solicitud</button>
+          <p class="form-note">Nos pondremos en contacto contigo en menos de 24 horas para confirmar disponibilidad y tarifa.</p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════ FOOTER ═══════ -->
+  <footer>
+    <div class="footer-logo">VESTIGIA</div>
+    <ul class="footer-links">
+      <li><a href="#sobre">El Hotel</a></li>
+      <li><a href="#servicios">Servicios</a></li>
+      <li><a href="#habitaciones">Habitaciones</a></li>
+      <li><a href="#contacto">Contacto</a></li>
+    </ul>
+    <p class="footer-copy">© 2025 Hotel Vestigia · Sigüenza, Guadalajara · Todos los derechos reservados</p>
+  </footer>
+
+  <script>
+    // ── NAV scroll ──
+    const nav = document.getElementById('main-nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 60);
+    });
+
+    // ── Hamburger (simple toggle) ──
+    function toggleMenu() {
+      const links = document.querySelector('.nav-links');
+      const cta   = document.querySelector('nav .btn-reservar');
+      const open  = links.style.display === 'flex';
+      links.style.cssText = open ? '' : 'display:flex;flex-direction:column;position:absolute;top:100%;left:0;right:0;background:rgba(28,26,21,.97);padding:1.5rem 5vw;gap:1.2rem;';
+      if (cta) cta.style.display = open ? '' : 'none';
+    }
+
+    // ── Reveal on scroll ──
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+    }, { threshold: 0.12 });
+    reveals.forEach(el => observer.observe(el));
+
+    // ── Form submit ──
+    function handleSubmit(e) {
+      e.preventDefault();
+      const btn = e.target.querySelector('.btn-enviar');
+      btn.textContent = '✓ Solicitud enviada';
+      btn.style.background = '#4a7a4a';
+      btn.style.color = '#fff';
+      setTimeout(() => {
+        btn.textContent = 'Enviar Solicitud';
+        btn.style.background = '';
+        btn.style.color = '';
+        e.target.reset();
+      }, 3500);
+    }
+  </script>
+
+</body>
+</html>
