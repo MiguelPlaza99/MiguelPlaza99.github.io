@@ -50,29 +50,86 @@
     }
 
     .logo {
-      font-family: 'Cinzel', serif;
-      font-size: 1.4rem;
-      letter-spacing: .22em;
       color: var(--stone);
       text-decoration: none;
-      display: flex; flex-direction: column; line-height: 1;
+      display: flex;
+      align-items: center;
+      gap: .9rem;
+      min-width: 0;
     }
-    .logo span {
-      font-family: 'Raleway', sans-serif;
-      font-size: .6rem;
-      letter-spacing: .45em;
+    .logo-mark {
+      width: 3.5rem;
+      height: 3.5rem;
+      display: grid;
+      place-items: center;
+      flex: 0 0 auto;
+      border-radius: 50%;
+      background:
+        radial-gradient(circle at center, rgba(232,221,208,.2) 0%, rgba(232,221,208,.06) 40%, transparent 72%);
+      border: 1px solid rgba(200,185,154,.16);
+      box-shadow: inset 0 0 20px rgba(232,221,208,.05);
+      overflow: visible;
+    }
+    .logo-mark img {
+      width: 102%;
+      height: 102%;
+      object-fit: contain;
+      mix-blend-mode: normal;
+      opacity: 1;
+      filter: brightness(1.14) saturate(1.1) drop-shadow(0 0 6px rgba(232,221,208,.08));
+    }
+    .logo-lockup {
+      display: flex;
+      flex-direction: column;
+      gap: .2rem;
+      min-width: 0;
+    }
+    .logo-name {
+      font-family: 'Cinzel', serif;
+      font-size: 1.12rem;
+      letter-spacing: .28em;
+      text-transform: uppercase;
       color: var(--stone-light);
+      line-height: 1;
+    }
+    .logo-subtitle {
+      font-family: 'Raleway', sans-serif;
+      font-size: .58rem;
+      letter-spacing: .42em;
+      text-transform: uppercase;
+      color: rgba(245,240,232,.7);
       font-weight: 300;
-      margin-top: 3px;
+      white-space: nowrap;
     }
 
     .nav-links { display: flex; gap: 2.2rem; list-style: none; align-items: center; }
     .nav-links a {
+      position: relative;
       font-size: .7rem; letter-spacing: .22em; text-transform: uppercase;
       color: var(--stone-light); text-decoration: none; opacity: .75;
       transition: opacity .3s, color .3s;
+      padding-bottom: .35rem;
     }
-    .nav-links a:hover { opacity: 1; color: var(--stone); }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 1px;
+      background: var(--stone);
+      transform: scaleX(0);
+      transform-origin: left;
+      opacity: 0;
+      transition: transform .3s ease, opacity .3s ease;
+    }
+    .nav-links a:hover,
+    .nav-links a.is-active { opacity: 1; color: var(--stone); }
+    .nav-links a:hover::after,
+    .nav-links a.is-active::after {
+      transform: scaleX(1);
+      opacity: 1;
+    }
 
     .btn-reservar {
       font-family: 'Cinzel', serif;
@@ -91,8 +148,9 @@
     ══════════════════════════════════════ */
     #inicio {
       position: relative;
-      height: 100vh; min-height: 600px;
+      min-height: 100vh;
       display: flex; align-items: center; justify-content: center;
+      padding: 8.5rem 0 4.5rem;
       overflow: hidden;
     }
 
@@ -101,12 +159,12 @@
       background:
         linear-gradient(to bottom, rgba(28,26,21,.3) 0%, rgba(28,26,21,.55) 60%, rgba(28,26,21,.92) 100%),
         url('portada.png') center/cover no-repeat;
-      transform: scale(1.05);
-      animation: heroZoom 18s ease-in-out infinite alternate;
+      transform: none;
+      animation: none;
     }
     @keyframes heroZoom {
-      from { transform: scale(1.05); }
-      to   { transform: scale(1.12); }
+      from { transform: scale(1.015); }
+      to   { transform: scale(1.045); }
     }
 
     /* Decorative diagonal stripe */
@@ -125,7 +183,49 @@
     .hero-content {
       position: relative; z-index: 2;
       text-align: center; padding: 0 2rem;
+      max-width: 980px;
+      width: 100%;
       animation: fadeUp .9s ease both;
+    }
+    .hero-emblem {
+      position: relative;
+      width: clamp(6.2rem, 11vw, 8.4rem);
+      aspect-ratio: 1;
+      display: grid;
+      place-items: center;
+      margin: 0 auto 1.2rem;
+      overflow: visible;
+    }
+    .hero-emblem::before {
+      content: '';
+      position: absolute;
+      inset: -.2rem;
+      border-radius: 50%;
+      border: 1px solid rgba(232,221,208,.55);
+      background:
+        radial-gradient(circle at 30% 30%, rgba(255,248,238,.2) 0%, rgba(255,248,238,0) 32%),
+        linear-gradient(180deg, rgba(42,36,28,.94) 0%, rgba(28,26,21,.92) 100%);
+      box-shadow:
+        0 0 0 10px rgba(200,185,154,.08),
+        0 18px 45px rgba(0,0,0,.28);
+    }
+    .hero-emblem img {
+      position: relative;
+      width: 68%;
+      height: 68%;
+      object-fit: contain;
+      mix-blend-mode: normal;
+      opacity: 1;
+      filter: brightness(1.14) saturate(1.1) drop-shadow(0 0 8px rgba(232,221,208,.1));
+    }
+    .hero-kicker {
+      font-family: 'Cinzel', serif;
+      font-size: .62rem;
+      letter-spacing: .55em;
+      text-transform: uppercase;
+      color: rgba(245,240,232,.68);
+      margin-bottom: 1rem;
+      animation: fadeUp .9s .12s ease both;
     }
     @keyframes fadeUp {
       from { opacity: 0; transform: translateY(28px); }
@@ -142,17 +242,20 @@
 
     .hero-title {
       font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(3.5rem, 9vw, 7.5rem);
-      font-weight: 300;
-      line-height: .95;
+      font-size: clamp(4rem, 9.5vw, 8rem);
+      font-weight: 400;
+      line-height: .9;
       letter-spacing: .04em;
       color: var(--cream);
       margin-bottom: .6rem;
+      text-shadow:
+        0 12px 28px rgba(0,0,0,.32),
+        0 0 18px rgba(232,221,208,.12);
       animation: fadeUp .9s .25s ease both;
     }
     .hero-title em {
       font-style: italic;
-      color: var(--stone-light);
+      color: #f3e7d7;
     }
 
     .hero-sub {
@@ -163,6 +266,16 @@
       letter-spacing: .06em;
       margin-bottom: 2.8rem;
       animation: fadeUp .9s .35s ease both;
+    }
+    .hero-sub-dynamic {
+      display: inline-block;
+      min-width: 7ch;
+      color: var(--cream);
+      transition: opacity .25s ease, transform .25s ease;
+    }
+    .hero-sub-dynamic.is-swapping {
+      opacity: .2;
+      transform: translateY(6px);
     }
 
     .hero-divider {
@@ -183,6 +296,55 @@
     .hero-ctas {
       display: flex; gap: 1.2rem; justify-content: center; flex-wrap: wrap;
       animation: fadeUp .9s .5s ease both;
+    }
+    .hero-highlights {
+      width: min(100%, 840px);
+      margin: 2.4rem auto 0;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1rem;
+      align-items: stretch;
+      animation: fadeUp .9s .6s ease both;
+    }
+    .hero-highlight {
+      text-align: left;
+      padding: 1rem 1.1rem 1.05rem;
+      min-height: 100%;
+      border: 1px solid rgba(200,185,154,.2);
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.03)),
+        rgba(28,26,21,.4);
+      backdrop-filter: blur(10px);
+      transition: transform .25s ease, border-color .25s ease, background .25s ease;
+    }
+    .hero-highlight:hover {
+      transform: translateY(-4px);
+      border-color: rgba(232,221,208,.34);
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.1), rgba(255,255,255,.04)),
+        rgba(28,26,21,.48);
+    }
+    .hero-highlight-label {
+      display: block;
+      font-size: .58rem;
+      letter-spacing: .34em;
+      text-transform: uppercase;
+      color: rgba(200,185,154,.78);
+      margin-bottom: .55rem;
+    }
+    .hero-highlight strong {
+      display: block;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.35rem;
+      font-weight: 400;
+      color: var(--cream);
+      margin-bottom: .2rem;
+    }
+    .hero-highlight p {
+      font-size: .82rem;
+      line-height: 1.6;
+      color: rgba(245,240,232,.65);
+      font-weight: 300;
     }
 
     .btn-primary {
@@ -210,7 +372,7 @@
     .btn-secondary:hover { border-color: var(--stone-light); color: var(--cream); transform: translateY(-2px); }
 
     .scroll-indicator {
-      position: absolute; bottom: 1.2rem; left: 50%; transform: translateX(-50%);
+      position: absolute; bottom: -.45rem; left: 50%; transform: translateX(-50%);
       display: flex; flex-direction: column; align-items: center; gap: .5rem;
       animation: fadeUp .9s .7s ease both;
     }
@@ -671,6 +833,13 @@
       font-size: 1.1rem; letter-spacing: .2em;
       color: var(--stone);
     }
+    .footer-logo img {
+      height: 2.4rem;
+      width: auto;
+      mix-blend-mode: normal;
+      opacity: .96;
+      filter: brightness(1.1) saturate(1.06);
+    }
 
     .footer-copy {
       font-size: .68rem; letter-spacing: .15em;
@@ -700,6 +869,9 @@
       background: var(--stone-light);
       transition: transform .3s, opacity .3s;
     }
+    nav.menu-open .hamburger span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+    nav.menu-open .hamburger span:nth-child(2) { opacity: 0; }
+    nav.menu-open .hamburger span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
 
     @media (max-width: 900px) {
       .sobre-grid, .entorno-cols, .contacto-grid { grid-template-columns: 1fr; gap: 3rem; }
@@ -707,8 +879,36 @@
       .entorno-mosaic { grid-template-rows: 160px 160px; }
       nav .nav-links, nav .btn-reservar { display: none; }
       .hamburger { display: flex; }
+      nav.menu-open .nav-links {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: calc(100% + .75rem);
+        left: 5vw;
+        right: 5vw;
+        padding: 1.35rem;
+        gap: 1.1rem;
+        background: rgba(28,26,21,.96);
+        border: 1px solid rgba(200,185,154,.14);
+        backdrop-filter: blur(10px);
+      }
+      .logo { gap: .7rem; }
+      .logo-mark { width: 3rem; height: 3rem; }
+      .logo-name { font-size: .92rem; }
+      .logo-subtitle { font-size: .5rem; letter-spacing: .32em; }
+      .hero-content { padding: 0 1.2rem; }
+      #inicio { padding: 7.5rem 0 3.5rem; }
+      .hero-highlights { grid-template-columns: 1fr; }
+      .scroll-indicator { display: none; }
       .form-row { grid-template-columns: 1fr; }
       footer { flex-direction: column; text-align: center; }
+    }
+    @media (max-width: 640px) {
+      #inicio { padding: 7rem 0 3rem; }
+      .hero-kicker { letter-spacing: .36em; }
+      .hero-divider::before, .hero-divider::after { flex-basis: 36px; }
+      .btn-primary, .btn-secondary { width: 100%; }
+      .hero-highlight { text-align: center; }
     }
 
     /* ══════════════════════════════════════
@@ -725,9 +925,14 @@
 
   <!-- ═══════ NAV ═══════ -->
   <nav id="main-nav">
-    <a href="#inicio" class="logo">
-      <img src="vestigia-transp-v1-1.png" alt="Hotel Vestigia Logo" style="height: 1.4rem; width: auto;">
-      <span>Hotel · Sigüenza</span>
+    <a href="#inicio" class="logo" aria-label="Hotel Vestigia, inicio">
+      <span class="logo-mark">
+        <img src="vestigia-transp-v1-1.png" alt="Logo Hotel Vestigia">
+      </span>
+      <span class="logo-lockup">
+        <strong class="logo-name">Vestigia</strong>
+        <span class="logo-subtitle">Hotel &middot; Sig&uuml;enza</span>
+      </span>
     </a>
     <ul class="nav-links">
       <li><a href="#sobre">El Hotel</a></li>
@@ -746,14 +951,34 @@
   <section id="inicio">
     <div class="hero-bg"></div>
     <div class="hero-content">
-      <img src="vestigia-transp-v1-1.png" alt="Hotel Vestigia Logo" style="height: 4rem; width: auto; margin-bottom: 1rem;">
+      <div class="hero-emblem" data-float="18">
+        <img src="vestigia-transp-v1-1.png" alt="Emblema Hotel Vestigia">
+      </div>
+      <p class="hero-kicker">Refugio singular en Sig&uuml;enza</p>
       <p class="hero-tagline">Sigüenza, Guadalajara · Castilla-La Mancha</p>
       <h1 class="hero-title">Hotel<br><em>Vestigia</em></h1>
-      <p class="hero-sub">Donde la piedra medieval guarda el alma de Castilla</p>
+      <p class="hero-sub">Donde la piedra medieval guarda <span id="hero-dynamic-word" class="hero-sub-dynamic">descanso</span></p>
       <div class="hero-divider"><span>★ ★ ★</span></div>
       <div class="hero-ctas">
         <a href="#contacto" class="btn-primary">Reservar Estancia</a>
         <a href="#sobre" class="btn-secondary">Descubrir el Hotel</a>
+      </div>
+      <div class="hero-highlights">
+        <article class="hero-highlight">
+          <span class="hero-highlight-label">Ubicaci&oacute;n</span>
+          <strong>400 m</strong>
+          <p>Del castillo y la catedral para llegar caminando al coraz&oacute;n hist&oacute;rico.</p>
+        </article>
+        <article class="hero-highlight">
+          <span class="hero-highlight-label">Atm&oacute;sfera</span>
+          <strong>Piedra + calma</strong>
+          <p>Interiores serenos, luz c&aacute;lida y una bienvenida con identidad propia.</p>
+        </article>
+        <article class="hero-highlight">
+          <span class="hero-highlight-label">Estancia</span>
+          <strong>18 habitaciones</strong>
+          <p>Escapadas con car&aacute;cter, bienestar y ritmo pausado en plena Sig&uuml;enza.</p>
+        </article>
       </div>
     </div>
     <div class="scroll-indicator">
@@ -1078,7 +1303,7 @@
   <!-- ═══════ FOOTER ═══════ -->
   <footer>
     <div class="footer-logo">
-      <img src="vestigia-transp-v1-1.png" alt="Hotel Vestigia Logo" style="height: 1.1rem; width: auto;">
+      <img src="vestigia-transp-v1-1.png" alt="Hotel Vestigia Logo">
     </div>
     <ul class="footer-links">
       <li><a href="#sobre">El Hotel</a></li>
@@ -1092,20 +1317,69 @@
   <script>
     // ── NAV scroll ──
     const nav = document.getElementById('main-nav');
-    window.addEventListener('scroll', () => {
-      nav.classList.toggle('scrolled', window.scrollY > 60);
-    });
 
     // ── Hamburger (simple toggle) ──
-    function toggleMenu() {
-      const links = document.querySelector('.nav-links');
-      const cta   = document.querySelector('nav .btn-reservar');
-      const open  = links.style.display === 'flex';
-      links.style.cssText = open ? '' : 'display:flex;flex-direction:column;position:absolute;top:100%;left:0;right:0;background:rgba(28,26,21,.97);padding:1.5rem 5vw;gap:1.2rem;';
-      if (cta) cta.style.display = open ? '' : 'none';
+    // ── Reveal on scroll ──
+    const navLinks = document.querySelectorAll('.nav-links a');
+    const sections = [...document.querySelectorAll('section[id]')];
+    const dynamicWord = document.getElementById('hero-dynamic-word');
+    const floatingItems = document.querySelectorAll('[data-float]');
+
+    function updateNavState() {
+      nav.classList.toggle('scrolled', window.scrollY > 60);
+
+      const offset = window.scrollY + (window.innerHeight * .28);
+      let activeId = 'inicio';
+
+      sections.forEach(section => {
+        if (offset >= section.offsetTop) activeId = section.id;
+      });
+
+      navLinks.forEach(link => {
+        const isActive = link.getAttribute('href') === `#${activeId}`;
+        link.classList.toggle('is-active', isActive);
+      });
     }
 
-    // ── Reveal on scroll ──
+    function toggleMenu() {
+      nav.classList.toggle('menu-open');
+    }
+
+    window.addEventListener('scroll', updateNavState);
+    window.addEventListener('load', updateNavState);
+    window.addEventListener('resize', () => {
+      if (window.innerWidth > 900) nav.classList.remove('menu-open');
+    });
+    updateNavState();
+
+    navLinks.forEach(link => {
+      link.addEventListener('click', () => nav.classList.remove('menu-open'));
+    });
+
+    if (dynamicWord) {
+      const words = ['descanso', 'historia', 'bienestar', 'quietud'];
+      let wordIndex = 0;
+
+      setInterval(() => {
+        dynamicWord.classList.add('is-swapping');
+        setTimeout(() => {
+          wordIndex = (wordIndex + 1) % words.length;
+          dynamicWord.textContent = words[wordIndex];
+          dynamicWord.classList.remove('is-swapping');
+        }, 180);
+      }, 2800);
+    }
+
+    window.addEventListener('mousemove', (event) => {
+      const offsetX = (event.clientX / window.innerWidth) - .5;
+      const offsetY = (event.clientY / window.innerHeight) - .5;
+
+      floatingItems.forEach(item => {
+        const depth = Number(item.dataset.float || 10);
+        item.style.transform = `translate3d(${offsetX * depth}px, ${offsetY * depth}px, 0)`;
+      });
+    });
+
     const reveals = document.querySelectorAll('.reveal');
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
