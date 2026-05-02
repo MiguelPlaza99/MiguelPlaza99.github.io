@@ -132,6 +132,7 @@
     }
 
     .btn-reservar {
+      position: relative;
       font-family: 'Cinzel', serif;
       font-size: .68rem; letter-spacing: .18em; text-transform: uppercase;
       padding: .55rem 1.4rem;
@@ -140,8 +141,26 @@
       background: transparent;
       text-decoration: none;
       transition: background .3s, color .3s;
+      overflow: hidden;
+    }
+    .btn-reservar::before,
+    .btn-primary::before,
+    .btn-secondary::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background: linear-gradient(110deg, transparent 0%, rgba(255,255,255,.18) 46%, transparent 54%);
+      opacity: 0;
+      transform: translateX(-130%) skewX(-20deg);
     }
     .btn-reservar:hover { background: var(--stone); color: var(--ink); }
+    .btn-reservar:hover::before,
+    .btn-primary:hover::before,
+    .btn-secondary:hover::before {
+      opacity: 1;
+      animation: sheenSweep .9s ease;
+    }
 
     /* ══════════════════════════════════════
        HERO
@@ -166,6 +185,26 @@
       from { transform: scale(1.015); }
       to   { transform: scale(1.045); }
     }
+    @keyframes orbFloat {
+      from { transform: translate3d(0, 0, 0) scale(1); }
+      to   { transform: translate3d(18px, -24px, 0) scale(1.08); }
+    }
+    @keyframes emblemDrift {
+      from { transform: translate3d(0, 0, 0); }
+      to   { transform: translate3d(0, -10px, 0); }
+    }
+    @keyframes dividerPulse {
+      0%, 100% { opacity: .68; letter-spacing: .4em; }
+      50% { opacity: 1; letter-spacing: .48em; }
+    }
+    @keyframes ribbonMove {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+    @keyframes sheenSweep {
+      from { transform: translateX(-130%) skewX(-20deg); }
+      to   { transform: translateX(160%) skewX(-20deg); }
+    }
 
     /* Decorative diagonal stripe */
     .hero-bg::after {
@@ -178,6 +217,31 @@
         rgba(200,185,154,.025) 60px,
         rgba(200,185,154,.025) 61px
       );
+    }
+    .hero-orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(6px);
+      pointer-events: none;
+      mix-blend-mode: screen;
+      opacity: .72;
+      animation: orbFloat 11s ease-in-out infinite alternate;
+    }
+    .hero-orb-a {
+      width: min(30vw, 280px);
+      height: min(30vw, 280px);
+      top: 12%;
+      left: 6%;
+      background: radial-gradient(circle, rgba(232,221,208,.16) 0%, rgba(232,221,208,.04) 42%, transparent 74%);
+    }
+    .hero-orb-b {
+      width: min(26vw, 220px);
+      height: min(26vw, 220px);
+      right: 10%;
+      bottom: 15%;
+      background: radial-gradient(circle, rgba(139,74,47,.2) 0%, rgba(139,74,47,.05) 38%, transparent 74%);
+      animation-duration: 14s;
+      animation-direction: alternate-reverse;
     }
 
     .hero-content {
@@ -195,6 +259,7 @@
       place-items: center;
       margin: 0 auto 1.2rem;
       overflow: visible;
+      animation: emblemDrift 6s ease-in-out infinite alternate;
     }
     .hero-emblem::before {
       content: '';
@@ -291,6 +356,7 @@
     .hero-divider span {
       font-size: .55rem; letter-spacing: .4em; text-transform: uppercase;
       color: var(--stone); opacity: .8;
+      animation: dividerPulse 3.2s ease-in-out infinite;
     }
 
     .hero-ctas {
@@ -307,6 +373,7 @@
       animation: fadeUp .9s .6s ease both;
     }
     .hero-highlight {
+      position: relative;
       text-align: left;
       padding: 1rem 1.1rem 1.05rem;
       min-height: 100%;
@@ -315,7 +382,18 @@
         linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.03)),
         rgba(28,26,21,.4);
       backdrop-filter: blur(10px);
-      transition: transform .25s ease, border-color .25s ease, background .25s ease;
+      overflow: hidden;
+      transition: transform .25s ease, border-color .25s ease, background .25s ease, box-shadow .25s ease;
+      box-shadow: 0 18px 35px rgba(0,0,0,.12);
+    }
+    .hero-highlight::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background: linear-gradient(110deg, transparent 0%, rgba(255,255,255,.18) 46%, transparent 54%);
+      opacity: 0;
+      transform: translateX(-130%) skewX(-20deg);
     }
     .hero-highlight:hover {
       transform: translateY(-4px);
@@ -323,6 +401,11 @@
       background:
         linear-gradient(180deg, rgba(255,255,255,.1), rgba(255,255,255,.04)),
         rgba(28,26,21,.48);
+      box-shadow: 0 24px 45px rgba(0,0,0,.2);
+    }
+    .hero-highlight:hover::after {
+      opacity: 1;
+      animation: sheenSweep .9s ease;
     }
     .hero-highlight-label {
       display: block;
@@ -346,8 +429,57 @@
       color: rgba(245,240,232,.65);
       font-weight: 300;
     }
+    .hero-ribbon {
+      position: relative;
+      width: min(100%, 920px);
+      margin: 2rem auto 0;
+      padding: .85rem 0;
+      overflow: hidden;
+      border-top: 1px solid rgba(200,185,154,.18);
+      border-bottom: 1px solid rgba(200,185,154,.18);
+      background:
+        linear-gradient(90deg, rgba(28,26,21,.08), rgba(245,240,232,.04), rgba(28,26,21,.08));
+    }
+    .hero-ribbon::before,
+    .hero-ribbon::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 4rem;
+      z-index: 1;
+      pointer-events: none;
+    }
+    .hero-ribbon::before {
+      left: 0;
+      background: linear-gradient(to right, rgba(28,26,21,.96), transparent);
+    }
+    .hero-ribbon::after {
+      right: 0;
+      background: linear-gradient(to left, rgba(28,26,21,.96), transparent);
+    }
+    .hero-ribbon-track {
+      display: flex;
+      width: max-content;
+      gap: 2.8rem;
+      animation: ribbonMove 24s linear infinite;
+    }
+    .hero-ribbon-track span {
+      position: relative;
+      font-size: .62rem;
+      letter-spacing: .42em;
+      text-transform: uppercase;
+      color: rgba(245,240,232,.62);
+      white-space: nowrap;
+    }
+    .hero-ribbon-track span::after {
+      content: '✦';
+      margin-left: 2.8rem;
+      color: rgba(200,185,154,.62);
+    }
 
     .btn-primary {
+      position: relative;
       font-family: 'Cinzel', serif;
       font-size: .72rem; letter-spacing: .2em; text-transform: uppercase;
       padding: .85rem 2.4rem;
@@ -356,10 +488,12 @@
       text-decoration: none;
       transition: background .3s, transform .2s;
       border: 1px solid var(--stone);
+      overflow: hidden;
     }
     .btn-primary:hover { background: var(--stone-light); transform: translateY(-2px); }
 
     .btn-secondary {
+      position: relative;
       font-family: 'Cinzel', serif;
       font-size: .72rem; letter-spacing: .2em; text-transform: uppercase;
       padding: .85rem 2.4rem;
@@ -368,6 +502,7 @@
       text-decoration: none;
       border: 1px solid rgba(200,185,154,.45);
       transition: border-color .3s, color .3s, transform .2s;
+      overflow: hidden;
     }
     .btn-secondary:hover { border-color: var(--stone-light); color: var(--cream); transform: translateY(-2px); }
 
@@ -406,8 +541,13 @@
       font-weight: 300;
       line-height: 1.1;
       color: var(--cream);
+      text-shadow: 0 10px 24px rgba(0,0,0,.12);
     }
-    .section-title em { font-style: italic; color: var(--stone-light); }
+    .section-title em {
+      font-style: italic;
+      color: var(--stone-light);
+      text-shadow: 0 0 14px rgba(232,221,208,.08);
+    }
 
     .ornament {
       display: flex; align-items: center; gap: .8rem; margin: 1.4rem 0 2rem;
@@ -548,9 +688,10 @@
     }
 
     .servicio-card {
+      transform-style: preserve-3d;
       background: var(--ink);
       padding: 3rem 2.5rem;
-      transition: background .3s;
+      transition: background .3s, transform .3s ease, box-shadow .3s ease;
       position: relative; overflow: hidden;
     }
     .servicio-card::before {
@@ -560,8 +701,27 @@
       background: var(--stone);
       transition: width .4s ease;
     }
-    .servicio-card:hover { background: rgba(46,42,32,.9); }
+    .servicio-card::after,
+    .hab-card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background: linear-gradient(110deg, transparent 0%, rgba(255,255,255,.16) 46%, transparent 54%);
+      opacity: 0;
+      transform: translateX(-130%) skewX(-20deg);
+    }
+    .servicio-card:hover {
+      background: rgba(46,42,32,.9);
+      transform: translateY(-8px);
+      box-shadow: 0 22px 40px rgba(0,0,0,.24);
+    }
     .servicio-card:hover::before { width: 100%; }
+    .servicio-card:hover::after,
+    .hab-card:hover::after {
+      opacity: 1;
+      animation: sheenSweep .9s ease;
+    }
 
     .servicio-icon {
       font-size: 1.8rem; margin-bottom: 1.5rem;
@@ -602,16 +762,21 @@
     .hab-card {
       position: relative; overflow: hidden;
       cursor: pointer;
+      transition: transform .35s ease, box-shadow .35s ease;
     }
 
     .hab-img {
       width: 100%; aspect-ratio: 4/3;
       object-fit: cover;
       display: block;
-      transition: transform .5s ease;
+      transition: transform .65s ease, filter .45s ease;
       filter: brightness(.85);
     }
-    .hab-card:hover .hab-img { transform: scale(1.04); filter: brightness(.7); }
+    .hab-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 26px 44px rgba(0,0,0,.24);
+    }
+    .hab-card:hover .hab-img { transform: scale(1.08); filter: brightness(.66); }
 
     .hab-overlay {
       position: absolute; inset: 0;
@@ -687,9 +852,9 @@
       object-fit: cover;
       display: block;
       filter: brightness(.8);
-      transition: filter .3s;
+      transition: filter .35s ease, transform .6s ease;
     }
-    .mosaic-img:hover { filter: brightness(1); }
+    .mosaic-img:hover { filter: brightness(1); transform: scale(1.04); }
     .mosaic-tall {
       grid-row: span 2;
     }
@@ -915,10 +1080,12 @@
        FADE-IN ON SCROLL
     ══════════════════════════════════════ */
     .reveal {
-      opacity: 0; transform: translateY(30px);
-      transition: opacity .7s ease, transform .7s ease;
+      opacity: 0;
+      transform: translate3d(0, var(--reveal-y, 30px), 0) scale(var(--reveal-scale, 1));
+      transition: opacity .8s ease, transform .8s ease;
+      transition-delay: var(--reveal-delay, 0ms);
     }
-    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal.visible { opacity: 1; transform: translate3d(0, 0, 0) scale(1); }
   </style>
 </head>
 <body>
@@ -950,8 +1117,10 @@
   <!-- ═══════ HERO ═══════ -->
   <section id="inicio">
     <div class="hero-bg"></div>
+    <div class="hero-orb hero-orb-a"></div>
+    <div class="hero-orb hero-orb-b"></div>
     <div class="hero-content">
-      <div class="hero-emblem" data-float="18">
+      <div class="hero-emblem">
         <img src="vestigia-transp-v1-1.png" alt="Emblema Hotel Vestigia">
       </div>
       <p class="hero-kicker">Refugio singular en Sig&uuml;enza</p>
@@ -979,6 +1148,18 @@
           <strong>18 habitaciones</strong>
           <p>Escapadas con car&aacute;cter, bienestar y ritmo pausado en plena Sig&uuml;enza.</p>
         </article>
+      </div>
+      <div class="hero-ribbon" aria-hidden="true">
+        <div class="hero-ribbon-track">
+          <span>Escapadas con car&aacute;cter</span>
+          <span>Sig&uuml;enza medieval</span>
+          <span>Piedra, calma y luz</span>
+          <span>Hotel Vestigia</span>
+          <span>Escapadas con car&aacute;cter</span>
+          <span>Sig&uuml;enza medieval</span>
+          <span>Piedra, calma y luz</span>
+          <span>Hotel Vestigia</span>
+        </div>
       </div>
     </div>
     <div class="scroll-indicator">
@@ -1323,7 +1504,6 @@
     const navLinks = document.querySelectorAll('.nav-links a');
     const sections = [...document.querySelectorAll('section[id]')];
     const dynamicWord = document.getElementById('hero-dynamic-word');
-    const floatingItems = document.querySelectorAll('[data-float]');
 
     function updateNavState() {
       nav.classList.toggle('scrolled', window.scrollY > 60);
@@ -1370,17 +1550,18 @@
       }, 2800);
     }
 
-    window.addEventListener('mousemove', (event) => {
-      const offsetX = (event.clientX / window.innerWidth) - .5;
-      const offsetY = (event.clientY / window.innerHeight) - .5;
+    const reveals = document.querySelectorAll('.reveal');
+    reveals.forEach((el, index) => {
+      el.style.setProperty('--reveal-delay', `${Math.min(index * 55, 360)}ms`);
 
-      floatingItems.forEach(item => {
-        const depth = Number(item.dataset.float || 10);
-        item.style.transform = `translate3d(${offsetX * depth}px, ${offsetY * depth}px, 0)`;
-      });
+      if (el.classList.contains('servicio-card') || el.classList.contains('hab-card')) {
+        el.style.setProperty('--reveal-scale', '.965');
+        el.style.setProperty('--reveal-y', '40px');
+      } else if (el.classList.contains('servicios-header') || el.classList.contains('hab-header')) {
+        el.style.setProperty('--reveal-y', '24px');
+      }
     });
 
-    const reveals = document.querySelectorAll('.reveal');
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
     }, { threshold: 0.12 });
